@@ -29,7 +29,16 @@ RUN apt-get-install -y curl \
       #&& jar uf /spark/jars/spark-core_2.11-${SPARK_VERSION}.jar org/apache/spark/ui/static/timeline-view.css \
       && cd /
 
-RUN apt-get-install -y python3 python3-setuptools python3-pip
+#RUN apt-get-install -y python3 python3-setuptools python3-pip
+# install python 3.7 into conda environment
+RUN wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
+    /bin/bash Miniconda3-latest-Linux-x86_64.sh -b -p /miniconda3 && \
+    rm Miniconda3-latest-Linux-x86_64.sh && \
+    /bin/bash -c "source /miniconda3/etc/profile.d/conda.sh && conda create -n py37 python=3.7 ipython pyspark" && \
+    echo ". /miniconda3/etc/profile.d/conda.sh" >> /root/.bashrc && \
+    mkdir /etc/hadoop
+COPY *site.xml /etc/hadoop/
+ENV HADOOP_CONF_DIR /etc/hadoop
 
 #Give permission to execute scripts
 RUN chmod +x /wait-for-step.sh && chmod +x /execute-step.sh && chmod +x /finish-step.sh
