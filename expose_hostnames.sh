@@ -6,7 +6,7 @@ cp /dev/null newhosts  # truncate newhosts
 
 newhosts=()
 for network in "${networks[@]}"; do
-    newhosts+=(`docker network inspect ${network} | jq '.[0].Containers[] | .IPv4Address + " " + .Name' | sed 's/\"//g' | sed 's/\/20//g'`)
+    newhosts+=(`docker network inspect ${network} | jq '.[0].Containers[] | .IPv4Address + " " + .Name' | sed 's/\"//g' | sed 's/\/[0-9][0-9]//g'`)
 done
 
 hosts=(`cat /etc/hosts`)
