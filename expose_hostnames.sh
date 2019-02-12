@@ -23,8 +23,11 @@ for host in "${hosts[@]}"; do
     fi
 done
 
+echo "Adding the following DNS lookups to your /etc/hosts file"
+
 echo "# begin added by spencer" >> newhosts
 for host in "${newhosts[@]}"; do
+    echo $host
     echo $host >> newhosts
 done
 echo "# end added by spencer" >> newhosts
