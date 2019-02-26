@@ -1,4 +1,4 @@
-FROM sstirlin/spark-base:2.4.0-hadoop2.7
+FROM sstirlin/spark-base:2.4.0-hadoop2.7_v2
 
 MAINTAINER Erika Pauwels <erika.pauwels@tenforce.com>
 MAINTAINER Gezim Sejdiu <g.sejdiu@gmail.com>

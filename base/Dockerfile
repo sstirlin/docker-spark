@@ -34,11 +34,14 @@ RUN apt-get-install -y curl \
 RUN wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
     /bin/bash Miniconda3-latest-Linux-x86_64.sh -b -p /miniconda3 && \
     rm Miniconda3-latest-Linux-x86_64.sh && \
-    /bin/bash -c "source /miniconda3/etc/profile.d/conda.sh && conda create -n py37 python=3.7 ipython pyspark" && \
+    /bin/bash -c "source /miniconda3/etc/profile.d/conda.sh && conda create -n py37 python=3.7 ipython pyspark=2.4.0" && \
     echo ". /miniconda3/etc/profile.d/conda.sh" >> /root/.bashrc && \
     mkdir /etc/hadoop
-COPY *site.xml /etc/hadoop/
-ENV HADOOP_CONF_DIR /etc/hadoop
+
+COPY *site.xml /spark/conf/
+COPY spark-env.sh /spark/conf/
+ENV HADOOP_HOME /spark/
+ENV HADOOP_CONF_DIR /spark/conf/
 
 #Give permission to execute scripts
 RUN chmod +x /wait-for-step.sh && chmod +x /execute-step.sh && chmod +x /finish-step.sh
