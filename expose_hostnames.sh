@@ -1,3 +1,14 @@
+# install jq if not exists
+if ! [ -x "$(command -v jq)" ]; then
+    pushd /tmp
+    wget https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
+    mv jq-linux64 jq
+    chmod a+x jq
+    export PATH=$PATH:/tmp
+    popd
+fi
+
+
 IFS=$'\n' # split on newline
 
 networks=(`docker network list -q`)

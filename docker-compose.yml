@@ -28,8 +28,8 @@ services:
     container_name: namenode
     hostname: namenode
     ports:
-      - "8020:8020"
       - "50070:50070"
+      - "8020:8020"
     volumes:
       - hadoop_namenode:/hadoop/dfs/name
     environment:
@@ -76,6 +76,10 @@ services:
     image: bde2020/hadoop-datanode:1.1.0-hadoop2.7.1-java8
     container_name: datanode1
     hostname: datanode1
+    ports:
+      - "50075:50075"
+      - "50010:50010"
+      - "50020:50020"
     depends_on:
       - namenode
     volumes:
